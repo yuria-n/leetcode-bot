@@ -1,0 +1,28 @@
+{
+  "name": "leetcode-bot",
+  "version": "0.0.0",
+  "description": "Slack bot posting a LeetCode algorithm question every weekday.",
+  "main": "index.ts",
+  "author": "Yuria Nishimura",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "prettier": "^1.17.1",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.4.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+    "lint-staged": {
+      "*.{ts,js}": [
+        "prettier --write",
+        "git add"
+      ]
+    }
+}
