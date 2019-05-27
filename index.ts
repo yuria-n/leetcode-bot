@@ -1,21 +1,15 @@
-import * as dotenv from 'dotenv';
-import axios from 'axios';
+import { getData, pickQuestion, formatText, postQuestion } from './utils';
 
-dotenv.config();
-const url = process.env.SLACK_WEBHOOK_URL;
+const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
 (async () => {
-  const title = '860. Lemonade Change';
-  const difficulty = 'Easy';
-  const link = 'https://leetcode.com/problems/lemonade-change/';
-  const text = `${title} - ${difficulty}\n${link}`;
-
-  const response = await axios({
-    method: 'post',
-    url,
-    data: {
-      text,
-    },
-  });
-  console.log(response.status, response.config.data);
+  const data = await getData();
+  const { difficulty: d, stat } = pickQuestion(data);
+  const text = formatText(
+    stat.frontend_question_id,
+    stat.question__title,
+    stat.question__title_slug,
+    DIFFICULTIES[d.level - 1],
+  );
+  postQuestion(text);
 })();
