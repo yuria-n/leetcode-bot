@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  post_question:
     docker:
       # specify the version you desire here
       - image: circleci/node:12
@@ -35,3 +35,16 @@ jobs:
 
       # run!
       - run: yarn ts-node index.ts
+
+workflows:
+  version: 2
+  scheduled_workflow:
+    triggers:
+      - schedule:
+          cron: "0 15 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - post_question
